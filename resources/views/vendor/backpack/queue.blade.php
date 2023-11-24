@@ -5,10 +5,10 @@
 @php
 use Illuminate\Support\Carbon;
 
+$overMap = rand(15, 180);
+$dateNow = Carbon::now()->endOfDay()->subMinutes($overMap);
 
-$dateNow = Carbon::now();
-
-$datePlus = Carbon::now();
+$dateSub = Carbon::now()->endOfDay()->subMinutes($overMap);
 @endphp
 
 <div class="row mb-3">
@@ -27,13 +27,17 @@ $datePlus = Carbon::now();
                         <th>Время окончания операции</th>
                     </tr>
 
-                    @foreach($queue->operations as $operation)
-
-                    <tr>
-                        <td>{{ $operation->name }}</td>
-                        <td>{{ $datePlus->format('d.m.Y H:i:s') }}</td>
-                        <td>{{ $datePlus->format('d.m.Y H:i:s') }}</td>
-                    </tr>
+                    @foreach($queue->operations as $key => $operation)
+                        <tr>
+                            <td>{{ $operation->name }}</td>
+                            <td>{{ $dateSub->format('d.m.Y H:i:s') }}</td>
+                            <td>{{ $dateSub->subMinutes($operation->pivot->time)->format('d.m.Y H:i:s') }}</td>
+                        </tr>
+                        @php
+                        if($key < $queue->operations->count() - 2) {
+                            $dateSub = $dateSub->subMinutes($operation->pivot->time);
+                        }
+                        @endphp
                     @endforeach
                 </table>
 

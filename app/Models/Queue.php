@@ -39,7 +39,7 @@ class Queue extends Model
 
     public function operations()
     {
-        return $this->belongsToMany(Operation::class);
+        return $this->belongsToMany(Operation::class)->withPivot(['time']);
     }
 
     public function equipment()
