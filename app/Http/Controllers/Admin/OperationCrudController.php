@@ -69,7 +69,7 @@ class OperationCrudController extends CrudController
             ],
             [   // Text
                 'name'  => 'duration',
-                'label' => "Продолжительность",
+                'label' => "Продолжительность (мин)",
                 'type'  => 'text',
             ], 
         ]);

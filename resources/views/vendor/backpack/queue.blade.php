@@ -29,7 +29,7 @@ $dateSub = Carbon::now()->endOfDay()->subMinutes($overMap);
 
                     @foreach($queue->operations as $key => $operation)
                         <tr>
-                            <td>{{ $operation->name }}</td>
+                            <td>{{ $queue->equipment->name }} - {{ $operation->name }}</td>
                             <td>{{ $dateSub->format('d.m.Y H:i:s') }}</td>
                             <td>{{ $dateSub->subMinutes($operation->pivot->time)->format('d.m.Y H:i:s') }}</td>
                         </tr>

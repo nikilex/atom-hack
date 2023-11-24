@@ -26,7 +26,7 @@ class QueueController extends Controller
             'Маршрутная карта' => false
         ];
 
-        $this->data['queue'] = Queue::with('operations')->where('id', $request->queue_id)->first();
+        $this->data['queue'] = Queue::with('operations', 'equipment')->where('id', $request->queue_id)->first();
 
         return view(backpack_view('queue'), $this->data);
     }
