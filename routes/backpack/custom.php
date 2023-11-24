@@ -22,4 +22,5 @@ Route::group([
 
     Route::get('dash', 'DashController@index')->name('backpack.dash.index');
     Route::get('equipment/{equipment_id}', 'PlanWorkAgregateController@index')->name('backpack.plan-work-agregate.index');
+    Route::get('queue/{queue_id}', 'QueueController@index')->name('backpack.queue.index');
 }); // this should be the absolute last line of this file
