@@ -41,7 +41,6 @@ class OperationCrudController extends CrudController
     {
         CRUD::column('name');
         CRUD::column('duration');
-        CRUD::column('queue_id');
         CRUD::column('created_at');
         CRUD::column('updated_at');
 

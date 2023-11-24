@@ -42,7 +42,7 @@ class Queue extends Model
         return $this->belongsToMany(Operation::class);
     }
 
-    public function equipments()
+    public function equipment()
     {
         return $this->belongsTo(Equipment::class);
     }

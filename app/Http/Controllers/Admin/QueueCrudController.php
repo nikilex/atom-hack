@@ -28,7 +28,7 @@ class QueueCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Queue::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/queue');
-        CRUD::setEntityNameStrings('queue', 'queues');
+        CRUD::setEntityNameStrings('Технологическую карту', 'Технологические карты');
     }
 
     /**
@@ -39,19 +39,33 @@ class QueueCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('priority');
-        CRUD::column('number');
-        CRUD::column('count_in_sadok');
-        CRUD::column('boyki');
-        CRUD::column('temp');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        CRUD::addColumns([
+            [
+                'name'  => 'priority',
+                'label' => 'Приоритет',
+            ],
+            [
+                'name'  => 'number',
+                'label' => 'Номер серии',
+            ],
+            [
+                'name'  => 'count_in_sadok',
+                'label' => 'Кол-во в садке',
+            ],
+            [
+                'name'  => 'boyki',
+                'label' => 'Кол-во боек',
+            ],
+            [
+                'name'  => 'equipment_id',
+                'label' => 'Оборудование',
+                'type'  => 'relationship',
+            ],
+            [
+                'name'  => 'temp',
+                'label' => 'Температура',
+            ],
+        ]);
     }
 
     /**
@@ -66,30 +80,15 @@ class QueueCrudController extends CrudController
 
         $this->crud->addFields([
             [   // Text
+                'name'  => 'number',
+                'label' => "Номер серии",
+                'type'  => 'text',
+            ],
+            [   // Text
                 'name'  => 'priority',
                 'label' => "Приоритет",
                 'type'  => 'text',
-            ],
-            [   // SelectMultiple = n-n relationship (with pivot table)
-                'label'     => "Оборудование",
-                'type'      => 'relationship',
-                'name'      => 'equipments', // the method that defines the relationship in your Model
-            
-                // optional
-                'entity'    => 'equipments', // the method that defines the relationship in your Model
-                'model'     => "App\Models\Equipment", // foreign key model
-                'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-            
-                // also optional
-                // 'options'   => (function ($query) {
-                //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-                // })
-            ],
-            [   // Text
-                'name'  => 'number',
-                'label' => "Номер заготовки",
-                'type'  => 'text',
+               // 'options' => [1, 2, 3, 4, 5]
             ],
             [   // Text
                 'name'  => 'count_in_sadok',
@@ -102,7 +101,7 @@ class QueueCrudController extends CrudController
             ],
             [   // Text
                 'name'  => 'boyki',
-                'label' => "Бойки",
+                'label' => "Кол-во боек",
                 'type'  => 'enum',
                 'options' => [
                     '1' => 1,
@@ -110,10 +109,21 @@ class QueueCrudController extends CrudController
                     '3' => 3
                 ]
             ],
-            [   // Text
-                'name'  => 'temp',
-                'label' => "Температура",
-                'type'  => 'text',
+            [   // SelectMultiple = n-n relationship (with pivot table)
+                'label'     => "Оборудование",
+                'type'      => 'relationship',
+                'name'      => 'equipment_id', // the method that defines the relationship in your Model
+            
+                // optional
+                'entity'    => 'equipment', // the method that defines the relationship in your Model
+                'model'     => "App\Models\Equipment", // foreign key model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+            
+                // also optional
+                // 'options'   => (function ($query) {
+                //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+                // })
             ],
             [   // SelectMultiple = n-n relationship (with pivot table)
                 'label'     => "Список операций",
@@ -130,6 +140,11 @@ class QueueCrudController extends CrudController
                 // 'options'   => (function ($query) {
                 //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
                 // })
+            ],
+            [   // Text
+                'name'  => 'temp',
+                'label' => "Температура",
+                'type'  => 'text',
             ],
         ]);
 

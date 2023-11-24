@@ -19,4 +19,7 @@ Route::group([
     Route::crud('equipment', 'EquipmentCrudController');
     Route::crud('queue', 'QueueCrudController');
     Route::crud('operation', 'OperationCrudController');
+
+    Route::get('dash', 'DashController@index')->name('backpack.dash.index');
+    Route::get('equipment/{equipment_id}', 'PlanWorkAgregateController@index')->name('backpack.plan-work-agregate.index');
 }); // this should be the absolute last line of this file

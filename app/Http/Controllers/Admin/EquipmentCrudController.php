@@ -39,18 +39,48 @@ class EquipmentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('name');
-        CRUD::column('status');
-        CRUD::column('operations');
-        CRUD::column('temp_now');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        $langStatus = [
+            'heating_of_parts' => 'Нагревание деталей',
+            'temperature_change' => 'Изменение температуры',
+            'under_maintenance' => 'На обслуживании',
+            'crash' => 'Авария'
+        ];
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        $langOperations = [
+            'prokat' => 'Прокат',
+            'kovka' => 'Ковка',
+            'otzhig' => 'Отжиг',
+        ];
+
+        CRUD::addColumns([
+            [
+                'name'  => 'name',
+                'label' => 'Оборудование',
+                'wrapper'   => [
+                    'href'   => function ($crud, $column, $entry, $related_key) {
+                        return backpack_url('equipment/' . $entry->id);
+                    },
+                ],
+            ],
+            [
+                'name'  => 'status',
+                'label' => 'Статус',
+                'value' => function($entry) use ($langStatus) {
+                    return $langStatus[$entry->status] ?? $entry->status;
+                }
+            ],
+            [
+                'name'  => 'operations',
+                'label' => 'Операции',
+                'value' => function($entry) use ($langOperations) {
+                    return $langOperations[$entry->operations] ?? $entry->operations;
+                }
+            ],
+            [
+                'name'  => 'temp_now',
+                'label' => 'Температура актуальная',
+            ],
+        ]);
     }
 
     /**
@@ -75,7 +105,6 @@ class EquipmentCrudController extends CrudController
                 'type'  => 'enum',
                 // optional, specify the enum options with custom display values
                 'options' => [
-                    'heating' => 'Нагревание',
                     'heating_of_parts' => 'Нагревание деталей',
                     'temperature_change' => 'Изменение температуры',
                     'under_maintenance' => 'На обслуживании',
@@ -93,11 +122,11 @@ class EquipmentCrudController extends CrudController
                     'otzhig' => 'Отжиг',
                 ]
             ],
-            [
-                'name'  => 'temp_now',
-                'label' => "Температура сейчас",
-                'type'  => 'text',
-            ]
+            // [
+            //     'name'  => 'temp_now',
+            //     'label' => "Температура сейчас",
+            //     'type'  => 'text',
+            // ]
         ]);
 
         /**

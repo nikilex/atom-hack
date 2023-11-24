@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('equipments', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->enum('status', ['heating', 'heating_of_parts', 'temperature_change', 'under_maintenance', 'crash']);
+            $table->enum('status', ['heating_of_parts', 'temperature_change', 'under_maintenance', 'crash']);
             $table->enum('operations', ['prokat', 'kovka', 'otzhig']);
             $table->string('temp_now')->nullable();
             $table->timestamps();
