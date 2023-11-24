@@ -158,17 +158,17 @@ class QueueCrudController extends CrudController
                 'name'      => 'operations', // the method that defines the relationship in your Model
 
                 // // optional
-                // 'entity'    => 'operationsHasMany', // the method that defines the relationship in your Model
+                'entity'    => 'operations', // the method that defines the relationship in your Model
                 // 'model'     => "App\Models\Operation", // foreign key model
                 // 'attribute' => 'name', // foreign key attribute that is shown to user
                 // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
 
                 'subfields'   => [
-                    [
-                        'name' => 'name',
-                        'label' => 'Наименование операции',
-                        'type' => 'text',
-                    ],
+                    // [
+                    //     'name' => 'name',
+                    //     'label' => 'Наименование операции',
+                    //     'type' => 'text',
+                    // ],
                     [
                         'name' => 'time',
                         'label' => 'Продолжительность',
