@@ -47,6 +47,11 @@ class Queue extends Model
         return $this->belongsTo(Equipment::class);
     }
 
+    public function operationsHasMany()
+    {
+        return $this->hasMany(OperationQueue::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

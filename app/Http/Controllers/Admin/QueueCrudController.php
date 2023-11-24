@@ -28,7 +28,26 @@ class QueueCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Queue::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/queue');
-        CRUD::setEntityNameStrings('Технологическую карту', 'Технологические карты');
+        CRUD::setEntityNameStrings('Серию', 'Серии');
+
+        CRUD::addSaveAction([
+            'name' => 'save_action_one',
+            'redirect' => function ($crud, $request, $itemId) {
+                return route('backpack.dash.index');
+            }, // what's the redirect URL, where the user will be taken after saving?
+
+            // OPTIONAL:
+            'button_text' => 'Сохранить', // override text appearing on the button
+            // You can also provide translatable texts, for example:
+            // 'button_text' => trans('backpack::crud.save_action_one'),
+            'visible' => function ($crud) {
+                return true;
+            }, // customize when this save action is visible for the current operation
+            'referrer_url' => function ($crud, $request, $itemId) {
+                return route('backpack.dash.index');
+            }, // override http_referrer_url
+            'order' => 1, // change the order save actions are in
+        ]);
     }
 
     /**
@@ -46,7 +65,7 @@ class QueueCrudController extends CrudController
             ],
             [
                 'name'  => 'number',
-                'label' => 'Номер серии',
+                'label' => 'Наименование серии',
             ],
             [
                 'name'  => 'count_in_sadok',
@@ -81,14 +100,16 @@ class QueueCrudController extends CrudController
         $this->crud->addFields([
             [   // Text
                 'name'  => 'number',
-                'label' => "Номер серии",
+                'label' => "Наименование серии",
                 'type'  => 'text',
             ],
             [   // Text
                 'name'  => 'priority',
                 'label' => "Приоритет",
-                'type'  => 'text',
-               // 'options' => [1, 2, 3, 4, 5]
+                'type'  => 'select_from_array',
+                'options'     => ['1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'],
+                'allows_null' => false,
+                'default'     => '1',
             ],
             [   // Text
                 'name'  => 'count_in_sadok',
@@ -109,42 +130,51 @@ class QueueCrudController extends CrudController
                     '3' => 3
                 ]
             ],
-            [   // SelectMultiple = n-n relationship (with pivot table)
-                'label'     => "Оборудование",
-                'type'      => 'relationship',
-                'name'      => 'equipment_id', // the method that defines the relationship in your Model
-            
-                // optional
-                'entity'    => 'equipment', // the method that defines the relationship in your Model
-                'model'     => "App\Models\Equipment", // foreign key model
-                'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-            
-                // also optional
-                // 'options'   => (function ($query) {
-                //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-                // })
-            ],
-            [   // SelectMultiple = n-n relationship (with pivot table)
-                'label'     => "Список операций",
-                'type'      => 'relationship',
-                'name'      => 'operations', // the method that defines the relationship in your Model
-            
-                // optional
-                'entity'    => 'operations', // the method that defines the relationship in your Model
-                'model'     => "App\Models\Operation", // foreign key model
-                'attribute' => 'name', // foreign key attribute that is shown to user
-                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-            
-                // also optional
-                // 'options'   => (function ($query) {
-                //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
-                // })
-            ],
+            // [   // SelectMultiple = n-n relationship (with pivot table)
+            //     'label'     => "Оборудование",
+            //     'type'      => 'relationship',
+            //     'name'      => 'equipment_id', // the method that defines the relationship in your Model
+
+            //     // optional
+            //     'entity'    => 'equipment', // the method that defines the relationship in your Model
+            //     'model'     => "App\Models\Equipment", // foreign key model
+            //     'attribute' => 'name', // foreign key attribute that is shown to user
+            //     'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+
+            //     // also optional
+            //     // 'options'   => (function ($query) {
+            //     //     return $query->orderBy('name', 'ASC')->where('depth', 1)->get();
+            //     // })
+            // ],
             [   // Text
                 'name'  => 'temp',
                 'label' => "Температура",
                 'type'  => 'text',
+            ],
+            [   
+                // SelectMultiple = n-n relationship (with pivot table)
+                'label'     => "Список операций",
+                'type'      => 'relationship',
+                'name'      => 'operations', // the method that defines the relationship in your Model
+
+                // // optional
+                // 'entity'    => 'operationsHasMany', // the method that defines the relationship in your Model
+                // 'model'     => "App\Models\Operation", // foreign key model
+                // 'attribute' => 'name', // foreign key attribute that is shown to user
+                // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+
+                'subfields'   => [
+                    [
+                        'name' => 'name',
+                        'label' => 'Наименование операции',
+                        'type' => 'text',
+                    ],
+                    [
+                        'name' => 'time',
+                        'label' => 'Продолжительность',
+                        'type' => 'text',
+                    ],
+                ],
             ],
         ]);
 

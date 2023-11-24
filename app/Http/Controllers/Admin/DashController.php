@@ -23,7 +23,7 @@ class DashController extends Controller
             'Главная' => backpack_url('dash'),
         ];
 
-        $this->data['queues'] = Queue::with('equipment', 'operations')->get();
+        $this->data['queues'] = Queue::with('equipment', 'operations')->orderBy('priority')->get();
 
         return view(backpack_view('dash'), $this->data);
     }
