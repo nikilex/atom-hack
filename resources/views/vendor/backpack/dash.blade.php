@@ -39,16 +39,18 @@ $datePlus = Carbon::now();
                                 <th>Планируемая дата производства</th>
                             </tr>
 
-                            @foreach($queues as $queue)
+                            @foreach($queues as $key => $queue)
                             @php
                             $datePlus = $dateNow->addHours('18')
                             @endphp
                             <tr>
-                                <!-- <td>
-                                    <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'up']) }}">&#8657</a>  <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'down']) }}">&#8659</a>
-                                </td> -->
-                                 <td>
-                                    <a href="#">&#8657</a>  <a href="#">&#8659</a>
+                                <td>
+                                    @if($key > 0)
+                                    <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'up']) }}">&#8657</a>  
+                                    @endif
+                                    @if($key < $queues->count() - 1)
+                                    <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'down']) }}">&#8659</a>
+                                    @endif
                                 </td>
                                 <td><a href="{{ route('backpack.queue.index', ['queue_id' => $queue->id]) }}">{{ $queue->number }}</a></td>
                                 <td>{{ $datePlus->format('d.m.Y H:i:s') }}</td>

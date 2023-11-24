@@ -63,29 +63,58 @@ class QueueController extends Controller
 
         $queues = Queue::orderBy('priority')->get();
 
-        foreach ($queues as $key => $queue) {
+        $key = array_search($request->queue_id, $queues->pluck('id')->toArray());
 
-            if ($request->type === 'up') {
-                if ($queue->id == $request->queue_id) {
-                    foreach ($queues->splice($key - 1) as $spliceQueue) {
-                        $spliceQueue->update(['priority' => 2]);
-                    }
-                    $queue->update(['priority' => 2]);
+        $beforeElements = $queues->slice(0, $key);
+        $afterElements = $queues->slice($key + 1);
 
-                    if (isset($queues[$key - 1])) {
-                        $queues[$key - 1]->update(['priority' => 3]);
-                    }
-
-                    foreach ($queues->splice($key + 1) as $spliceQueue) {
-                        $spliceQueue->update(['priority' => 3]);
-                    }
-
-                    break;
-                }
-            }
-
-            // $queue->update(['priority', 3]);
+        foreach($queues as $queue) {
+            $queue->update(['priority' => 1]);
         }
+
+        foreach($beforeElements as $el) {
+            $el->update(['priority' => 1]);
+        }
+
+        foreach($afterElements as $el) {
+            $el->update(['priority' => 4]);
+        }
+
+        if ($request->type === 'up') {
+            $queues[$key]->update(['priority' => 2]);
+            $queues[$key - 1]->update(['priority' => 3]);
+        }
+
+        if ($request->type === 'down') {
+            $queues[$key]->update(['priority' => 3]);
+            $queues[$key + 1]->update(['priority' => 2]);
+        }
+
+        return redirect()->route('backpack.dash.index');
+
+        // foreach ($queues as $key => $queue) {
+
+        //     if ($request->type === 'up') {
+        //         if ($queue->id == $request->queue_id) {
+        //             foreach ($queues->splice($key - 1) as $spliceQueue) {
+        //                 $spliceQueue->update(['priority' => 2]);
+        //             }
+        //             $queue->update(['priority' => 2]);
+
+        //             if (isset($queues[$key - 1])) {
+        //                 $queues[$key - 1]->update(['priority' => 3]);
+        //             }
+
+        //             foreach ($queues->splice($key + 1) as $spliceQueue) {
+        //                 $spliceQueue->update(['priority' => 3]);
+        //             }
+
+        //             break;
+        //         }
+        //     }
+
+        //     // $queue->update(['priority', 3]);
+        // }
         // dd($queues->where('id', $request->queue_id));
         // dd($queues->pluck('id')->toArray());
         // $key = array_search($request->queue_id, $queues->pluck('id'));
