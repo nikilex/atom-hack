@@ -43,7 +43,7 @@ while($datePlus < $dateNow->endOfDay()) {
 
     <div class="row mb-3">
         <div class="col">
-            <h2>План работы агрегата</h2>
+            <h2>План работы агрегата <b>{{ $equipment->name }}</b></h2>
         </div>
         <div class="col-12">
             <h3>Дата: {{ $dateNow->format('d.m.Y') }}</h3>

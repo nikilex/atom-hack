@@ -2,15 +2,6 @@
 
 @section('content')
 
-@php
-use Illuminate\Support\Carbon;
-
-$overMap = rand(15, 180);
-$dateNow = Carbon::now()->endOfDay()->subMinutes($overMap);
-
-$dateSub = Carbon::now()->endOfDay()->subMinutes($overMap);
-@endphp
-
 <div class="row mb-3">
     <div class="col">
         <h2>Маршрутная карта для серии <b>{{ $queue->number }}</b></h2>
@@ -27,17 +18,12 @@ $dateSub = Carbon::now()->endOfDay()->subMinutes($overMap);
                         <th>Время окончания операции</th>
                     </tr>
 
-                    @foreach($queue->operations as $key => $operation)
+                    @foreach($normOperations as $key => $operation)
                         <tr>
-                            <td>{{ $queue->equipment->name }} - {{ $operation->name }}</td>
-                            <td>{{ $dateSub->format('d.m.Y H:i:s') }}</td>
-                            <td>{{ $dateSub->subMinutes($operation->pivot->time)->format('d.m.Y H:i:s') }}</td>
+                            <td>{{ $queue->equipment->name }} - {{ $operation['name'] }}</td>
+                            <td>{{ $operation['dateStart'] }}</td>
+                            <td>{{ $operation['dateEnd'] }}</td>
                         </tr>
-                        @php
-                        if($key < $queue->operations->count() - 2) {
-                            $dateSub = $dateSub->subMinutes($operation->pivot->time);
-                        }
-                        @endphp
                     @endforeach
                 </table>
 
