@@ -27,7 +27,7 @@
                     @endforeach
                 </table>
 
-                @if($queue->operations->isEmpty())
+                @if($queue->operationsHasMany->isEmpty())
                 <div class="row">
                     <div class="col">
                         <h3 class="text-center">Пусто</h3>

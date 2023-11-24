@@ -71,7 +71,7 @@ class EquipmentCrudController extends CrudController
             ],
             [
                 'name'  => 'operations',
-                'label' => 'Операции',
+                'label' => 'Совместимые операции',
                 'value' => function($entry) use ($langOperations) {
                     return $langOperations[$entry->operations] ?? $entry->operations;
                 }
@@ -113,7 +113,7 @@ class EquipmentCrudController extends CrudController
             ],
             [
                 'name'  => 'operations',
-                'label' => 'Операция',
+                'label' => 'Совместимые операции',
                 'type'  => 'enum',
                 // optional, specify the enum options with custom display values
                 'options' => [

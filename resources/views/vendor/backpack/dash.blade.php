@@ -34,7 +34,7 @@ $datePlus = Carbon::now();
                     <div class="col">
                         <table class="table table-bordered">
                             <tr>
-                                <!-- <th></th> -->
+                                <th></th>
                                 <th>Название серии</th>
                                 <th>Планируемая дата производства</th>
                             </tr>
@@ -47,6 +47,9 @@ $datePlus = Carbon::now();
                                 <!-- <td>
                                     <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'up']) }}">&#8657</a>  <a href="{{ route('backpack.queue.change-priority', ['queue_id' => $queue->id, 'type' => 'down']) }}">&#8659</a>
                                 </td> -->
+                                 <td>
+                                    <a href="#">&#8657</a>  <a href="#">&#8659</a>
+                                </td>
                                 <td><a href="{{ route('backpack.queue.index', ['queue_id' => $queue->id]) }}">{{ $queue->number }}</a></td>
                                 <td>{{ $datePlus->format('d.m.Y H:i:s') }}</td>
                             </tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\QueueRequest;
+use App\Models\OperationQueue;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -155,25 +156,49 @@ class QueueCrudController extends CrudController
                 // SelectMultiple = n-n relationship (with pivot table)
                 'label'     => "Список операций",
                 'type'      => 'relationship',
-                'name'      => 'operations', // the method that defines the relationship in your Model
+                'name'      => 'operationsHasMany', // the method that defines the relationship in your Model
 
                 // // optional
-                'entity'    => 'operations', // the method that defines the relationship in your Model
-                // 'model'     => "App\Models\Operation", // foreign key model
+                'entity'    => 'operationsHasMany', // the method that defines the relationship in your Model
+                'model'     => OperationQueue::class, // foreign key model
                 // 'attribute' => 'name', // foreign key attribute that is shown to user
-                // 'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+                'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
 
                 'subfields'   => [
-                    // [
-                    //     'name' => 'name',
-                    //     'label' => 'Наименование операции',
-                    //     'type' => 'text',
-                    // ],
+                    [
+                        'name' => 'name_queue',
+                        'label' => 'Наименование операции',
+                        'type' => 'select_from_array',
+                        'options' => [
+                            'Прокат' => 'Прокат',
+                            'Ковка' => 'Ковка',
+                            'Нагрев' => 'Нагрев',
+                        ],
+                        'allows_null' => false,
+                        'default' => 'Нагрев'
+                    ],
                     [
                         'name' => 'time',
                         'label' => 'Продолжительность',
                         'type' => 'text',
                     ],
+                ],
+
+                'pivotSelect'=> [
+                    'label' => 'sd',
+                    'attribute' => "name", // attribute on model that is shown to user
+                    'placeholder' => 'Pick a company',
+                    'wrapper' => [
+                        'class' => 'col-md-6',
+                    ],
+                    // by default we call a $model->all(). you can configure it like in any other select
+                    'options' => function($model) {
+                        return $model;
+                    },
+                    // note that just like any other select, enabling ajax will require you to provide an url for the field
+                    // to fetch available options. You can use the FetchOperation or manually create the enpoint.
+                    //'ajax' => true,
+                    //'data_source' => backpack_url('fetch'),
                 ],
             ],
         ]);

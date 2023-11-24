@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('operation_queue', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('operation_id')
                 ->references('id')
                 ->on('operations')

@@ -15,7 +15,20 @@ $intervals = [];
 $index = 0;
 
 while($datePlus < $dateNow->endOfDay()) { 
-    $intervals[$index]=[ 'name'=> $equipment->name,
+    if($index < 3) {
+        $queueName = $equipment->queues[0]->number;
+    }
+
+    if($index > 3 && $index < 6) {
+        $queueName = $equipment->queues[1]->number;
+    }
+
+    if($index > 6 && $index < 9) {
+        $queueName = $equipment->queues[2]->number;
+    }
+    
+    $intervals[$index]=[ 
+        'name'=> $queueName,
         'temp_now' => $equipment->temp_now,
         'date_start' => $datePlus->format('d.m.Y H:i:s')
     ];

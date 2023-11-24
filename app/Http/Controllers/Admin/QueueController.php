@@ -26,7 +26,7 @@ class QueueController extends Controller
             'Маршрутная карта' => false
         ];
 
-        $queue = Queue::with('operations', 'equipment')->where('id', $request->queue_id)->first();
+        $queue = Queue::with('operationsHasMany', 'equipment')->where('id', $request->queue_id)->first();
 
         $this->data['queue'] = $queue;
 
@@ -36,17 +36,17 @@ class QueueController extends Controller
 
         $operationsArr = [];
 
-        $reverseOperations = $queue->operations->reverse();
+        $reverseOperations = $queue->operationsHasMany->reverse();
 
         foreach ($reverseOperations as $key => $reverseOperation) {
             $operationsArr[] = [
-                'name' => $reverseOperation->name,
+                'name' => $reverseOperation->name_queue,
                 'dateEnd' => $dateSub->format('d.m.Y H:i:s'),
-                'dateStart' => $dateSub->subMinutes($reverseOperation->pivot->time)->format('d.m.Y H:i:s'),
+                'dateStart' => $dateSub->subMinutes($reverseOperation->time)->format('d.m.Y H:i:s'),
             ];
 
             if($key < $reverseOperations->count() - 2) {
-                $dateSub = $dateSub->subMinutes($reverseOperation->pivot->time);
+                $dateSub = $dateSub->subMinutes($reverseOperation->time);
             }
         }
 
