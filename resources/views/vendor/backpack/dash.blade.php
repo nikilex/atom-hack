@@ -18,7 +18,7 @@ $datePlus = Carbon::now();
 </div>
 <div class="row mb-3">
     <div class="col">
-        <a href="https://hk.test/admin/queue/create" class="btn btn-primary" data-style="zoom-in">
+        <a href="{{ route('queue.create') }}" class="btn btn-primary" data-style="zoom-in">
             <span class="ladda-label"><i class="la la-plus"></i> Добавить серию</span>
         </a>
     </div>
