@@ -78,7 +78,21 @@ class EquipmentCrudController extends CrudController
             ],
             [
                 'name'  => 'temp_now',
+                'label' => 'Температура сейчас',
+            ],
+            [
+                'name'  => 'temp_actual',
                 'label' => 'Температура актуальная',
+                'value' => function($entry) use ($langOperations) {
+                    return '1100';
+                }
+            ],
+            [
+                'name'  => 'temp_dopustimie',
+                'label' => 'Допустимые температуры',
+                'value' => function($entry) use ($langOperations) {
+                    return '980, 1190, 1030, 1100, 990';
+                }
             ],
         ]);
     }
