@@ -72,7 +72,7 @@ $datePlus = Carbon::now();
                                 <th>Время окончания производства</th>
                             </tr>
                             @php
-                            $datePlus = $dateNow->subMonth(1)
+                            $datePlus = $dateNow->subMonth(2)
                             @endphp
                             @foreach($queues as $queue)
                             @php
