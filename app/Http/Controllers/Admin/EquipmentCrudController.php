@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\EquipmentRequest;
+use App\Models\Queue;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -66,7 +67,10 @@ class EquipmentCrudController extends CrudController
                 'name'  => 'status',
                 'label' => 'Статус',
                 'value' => function($entry) use ($langStatus) {
-                    return $langStatus[$entry->status] ?? $entry->status;
+                    $queues = Queue::get()->toArray();
+                 
+                    return $queues[rand(0, count($queues) - 1)]['number'];
+                  //  return $langStatus[$entry->status] ?? $entry->status;
                 }
             ],
             [
