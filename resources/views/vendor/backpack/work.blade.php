@@ -44,8 +44,25 @@ $datePlus = Carbon::now();
                             {{ $datePlus->format('d.m.Y H:i:s') }}
                         </td>
                         <td>{{ $queue->number }}</td>
-                        <td>{{ $queue->equipment->name }}</a></td>
+                        @if($key > 0 && stripos($queues[$key - 1]->equipment->name, 'печь') )
+                        @php
+                        $oborud = ['ковка', 'прокат'];
+                        @endphp
+                        <td>{{ $oborud[rand(0,1)] }}</td>
+                        @else
                         <td>{{ $queue->equipment->name }}</td>
+                        @endif
+
+                        @if(($key > 0 && stripos($queues[$key - 1]->equipment->name,'ковка')) || ($key > 0 && stripos($queues[$key - 1]->equipment->name, 'прокат')))
+                        <td>Печь {{ $key }}</td>
+                       
+                        @else
+                        @php
+                        $oborud = ['ковка', 'прокат'];
+                        @endphp
+                        <td>{{ $oborud[rand(0,1)] }}</td>
+                        @endif
+                        <!-- <td>{{ $queue->equipment->name }}</td> -->
                     </tr>
                     @endforeach
                 </table>
