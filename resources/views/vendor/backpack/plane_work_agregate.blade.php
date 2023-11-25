@@ -15,16 +15,19 @@ $intervals = [];
 $index = 0;
 
 while($datePlus < $dateNow->endOfDay()) { 
-    if($index < 3) {
-        $queueName = $equipment->queues[0]->number;
-    }
+    $queueName = $equipment->name;
+    if($equipment->queues->count()) {
+        if($index < 3) {
+            $queueName = $equipment->queues[0]->number;
+        }
 
-    if($index > 3 && $index < 6) {
-        $queueName = $equipment->queues[1]->number;
-    }
+        if($index > 3 && $index < 6) {
+            $queueName = $equipment->queues[1]->number;
+        }
 
-    if($index > 6 && $index < 9) {
-        $queueName = $equipment->queues[2]->number;
+        if($index > 6 && $index < 9) {
+            $queueName = $equipment->queues[2]->number;
+        }
     }
     
     $intervals[$index]=[ 
