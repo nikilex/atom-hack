@@ -28,4 +28,17 @@ class DashController extends Controller
         return view(backpack_view('dash'), $this->data);
     }
 
+    public function work()
+    {
+        $this->data['title'] = 'Дашбоард';
+
+        $this->data['breadcrumbs'] = [
+            'Главная' => backpack_url('dash'),
+        ];
+
+        $this->data['queues'] = Queue::with('equipment', 'operations')->orderBy('priority')->get();
+
+        return view(backpack_view('work'), $this->data);
+    }
+
 }

@@ -4,4 +4,5 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('equipment') }}">Мониторинг оборудования</a></li>
 <!-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('equipment') }}">Оборудование</a></li> -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('queue') }}">Технологические карты</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('work') }}">План участка работ</a></li>
 <!-- <li class="nav-item"><a class="nav-link" href="{{ backpack_url('operation') }}">Операции</a></li> -->

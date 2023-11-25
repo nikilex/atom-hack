@@ -16,6 +16,7 @@ $index = 0;
 
 while($datePlus < $dateNow->endOfDay()) { 
     $queueName = $equipment->name;
+
     if($equipment->queues->count()) {
         if($index < 3) {
             $queueName = $equipment->queues[0]->number;

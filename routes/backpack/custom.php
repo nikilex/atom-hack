@@ -21,6 +21,7 @@ Route::group([
     Route::crud('operation', 'OperationCrudController');
 
     Route::get('dash', 'DashController@index')->name('backpack.dash.index');
+    Route::get('work', 'DashController@work')->name('backpack.work.index');
     Route::get('equipment/{equipment_id}', 'PlanWorkAgregateController@index')->name('backpack.plan-work-agregate.index');
     Route::get('queue/{queue_id}', 'QueueController@index')->name('backpack.queue.index');
     Route::get('change-priority/{queue_id}', 'QueueController@changePriority')->name('backpack.queue.change-priority');
