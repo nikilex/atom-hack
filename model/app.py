@@ -52,8 +52,20 @@ async def distribute_series(data: List[Operation], num_ovens: int):
     """
     Распределение серий операций по печам.
     """
-    ovens = ... # Создайте список объектов Oven
-    oven_groups = ... # Определите группы печей
+async def distribute_series(data: List[Operation], ovens_data: List[Oven]):
+    """
+    Распределение серий операций по печам.
+    """
+    ovens = [Oven(**oven) for oven in ovens_data]
+
+    oven_groups = {} 
+
+    for oven in ovens:
+        max_temp = max(oven.working_temps)
+        if max_temp not in oven_groups:
+            oven_groups[max_temp] = []
+        oven_groups[max_temp].append(oven)
+
     distribution = distribute_series_to_ovens(data, ovens, oven_groups)
     return {"distribution": distribution}
 
