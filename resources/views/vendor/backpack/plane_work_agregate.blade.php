@@ -78,5 +78,10 @@ while($datePlus < $dateNow->endOfDay()) {
         </div>
     </div>
 
+    <div>
+        <h3>Эффективность оборудования день / месяц / год</h3>
+        <h3 class="text-danger">{{ 85 + rand(1,3) }}% / {{ 80 + rand(1,3) }}% / {{ 75 + rand(1,3)}}%</h3>
+    </div>
+
 
     @endsection
