@@ -5,10 +5,10 @@
 @php
 use Illuminate\Support\Carbon;
 
-
 $dateNow = Carbon::now();
 
 $datePlus = Carbon::now();
+
 @endphp
 
 <div class="row">
@@ -35,39 +35,14 @@ $datePlus = Carbon::now();
                         <th>Агрегат 2</th>
                     </tr>
 
-                    @foreach($queues as $key => $queue)
-                    @php
-                    $datePlus = $dateNow->addHours(rand(1, 2))
-                    @endphp
+                   @foreach($arr as $item)
                     <tr>
-                        <td>
-                            {{ $datePlus->format('d.m.Y H:i:s') }}
-                        </td>
-                        <td>{{ $queue->number }}</td>
-                        @if($key > 0 && stripos($queue->equipment->name, 'печь') )
-                        @php
-                        $oborud = ['Ковка', 'Прокат'];
-                        @endphp
-                        <td>{{ $oborud[rand(0,1)] }}</td>
-                        @else
-                        <td>{{ $queue->equipment->name }}</td>
-                        @endif
-
-                        @if(($key > 0 && $queue->equipment->name == 'Ковка') || ($key > 0 && $queue->equipment->name == 'Прокат'))
-                            <td>Печь {{ $key }}</td>
-                       
-                        @else
-
-                            @php
-                            $oborud = ['Ковка', 'Прокат'];
-                            @endphp
-
-                        <td>{{ $oborud[rand(0,1)] }}</td>
-
-                        @endif
-                        <!-- <td>{{ $queue->equipment->name }}</td> -->
-                    </tr>
-                    @endforeach
+                        <td>{{$item['time']}}</td>
+                        <td>{{$item['name']}}</td>
+                        <td>{{$item['ag1']}}</td>
+                        <td>{{$item['ag2']}}</td>
+</td>
+                   @endforeach
                 </table>
             </div>
         </div>
