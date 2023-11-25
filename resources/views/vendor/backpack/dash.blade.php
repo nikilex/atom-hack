@@ -71,7 +71,9 @@ $datePlus = Carbon::now();
                                 <th>Название серии</th>
                                 <th>Время окончания производства</th>
                             </tr>
-
+                            @php
+                            $datePlus = $dateNow->subMonth(1)
+                            @endphp
                             @foreach($queues as $queue)
                             @php
                             $datePlus = $dateNow->addHours('18')
