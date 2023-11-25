@@ -37,62 +37,69 @@ class DashController extends Controller
         ];
 
         $this->data['queues'] = Queue::with('equipment', 'operations')->orderBy('priority')->get();
-        $datePlus = Carbon::now();
+        $datePlus = Carbon::now()->startOfDay();
         $this->data['arr'] = [
             [
-                'time' => $datePlus->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 00:00:00',
                 'name' => '34-15053-18 №17,19',
                 'ag1'  => 'Печь 2',
                 'ag2' => 'Прокат'
             ],
             [
-                'time' => $datePlus->addMinutes(45)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 00:15:00',
                 'name' => '34-15053-18 №17,19',
                 'ag1'  => 'Прокат',
                 'ag2' => 'Печь 2'
             ],
             [
-                'time' => $datePlus->addMinutes(45 + 15)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 01:45:00',
                 'name' => '34-15053-18 №17,19',
                 'ag1'  => 'Печь 2',
                 'ag2' => 'Прокат'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 02:00:00',
                 'name' => '34-15093-18 №1,2',
                 'ag1'  => 'Печь 5',
                 'ag2' => 'Ковка'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60+15)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 02:15:00',
                 'name' => '34-15093-18 №1,2',
                 'ag1'  => 'Ковка',
                 'ag2' => 'Печь 5'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60+15+100)->format('d.m.Y H:i:s'),
-                'name' => '2383-18 часть 1',
-                'ag1'  => 'Печь 6',
+                'time' => '25.11.2023 03:45:00',
+                'name' => '34-15093-18 №1,2',
+                'ag1'  => 'Печь 5',
                 'ag2' => 'Ковка'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60+15+100+15)->format('d.m.Y H:i:s'),
-                'name' => '2383-18 часть 1',
+                'time' => '25.11.2023 04:00:00',
+                'name' => '34-15093-18 №1,2',
                 'ag1'  => 'Ковка',
-                'ag2' => 'Печь 6'
+                'ag2' => 'Печь 5'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60+15+100+15+75)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 04:30:00',
                 'name' => '2383-18 часть 1',
                 'ag1'  => 'Печь 6',
                 'ag2' => 'Прокат'
             ],
             [
-                'time' => $datePlus->addMinutes(45+15+60+15+100+15+75+15)->format('d.m.Y H:i:s'),
+                'time' => '25.11.2023 04:45:00',
                 'name' => '2383-18 часть 1',
                 'ag1'  => 'Прокат',
                 'ag2' => 'Печь 6'
             ],
+            [
+                'time' => '25.11.2023 06:15:00',
+                'name' => '2383-18 часть 1',
+                'ag1'  => 'Печь 6',
+                'ag2' => 'Ковка'
+            ],
+
         ];
 
         return view(backpack_view('work'), $this->data);
